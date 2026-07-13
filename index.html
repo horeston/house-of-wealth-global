@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The House of Wealth | High Watt Solutions</title>
+    <style>
+        /* ===== GLOBAL RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0f1e;
+            color: #ffffff;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ===== ANIMATED BACKGROUND (Subtle stars) ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+            background-size: 200px 100px;
+            background-repeat: repeat;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== HUMMINGBIRD ANIMATION ===== */
+        .hummingbird {
+            position: fixed;
+            font-size: 3.5rem;
+            animation: flyAround 18s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 999;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+            will-change: transform, top, left;
+            user-select: none;
+        }
+
+        @keyframes flyAround {
+            0%   { top: 10%; left: 5%; transform: scale(1) rotate(0deg); }
+            20%  { top: 15%; left: 85%; transform: scale(1.2) rotate(10deg); }
+            40%  { top: 75%; left: 75%; transform: scale(0.9) rotate(-5deg); }
+            60%  { top: 85%; left: 10%; transform: scale(1.1) rotate(15deg); }
+            80%  { top: 40%; left: 90%; transform: scale(1.3) rotate(-10deg); }
+            100% { top: 10%; left: 5%; transform: scale(1) rotate(0deg); }
+        }
+
+        /* ===== DECORATIVE FLOWERS (CSS drawn & swaying) ===== */
+        .flower {
+            position: fixed;
+            font-size: 2.5rem;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+            will-change: transform;
+            user-select: none;
+        }
+
+        .flower-1 { bottom: 5%; left: 3%; animation: sway 6s ease-in-out infinite; }
+        .flower-2 { bottom: 15%; right: 3%; animation: sway 8s ease-in-out infinite reverse; }
+        .flower-3 { top: 10%; left: 2%; animation: sway 7s ease-in-out infinite; }
+        .flower-4 { top: 20%; right: 2%; animation: sway 9s ease-in-out infinite reverse; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(20deg) scale(1.1); }
+        }
+
+        /* ===== NAVIGATION (With advanced hover underline) ===== */
+        nav {
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 25px;
+        }
+
+        nav a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        /* Professional underline that slides from left to right */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #d4af37;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            max-width: 900px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== TEXT LOGO WITH 3D HOVER & GLOW ===== */
+        .logo-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #d4af37;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            margin-bottom: 10px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+            cursor: default;
+        }
+
+        /* Premium 3D text hover effect */
+        .logo-text:hover {
+            transform: perspective(800px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+            text-shadow: 0 0 50px rgba(212, 175, 55, 0.6), 0 10px 30px rgba(0,0,0,0.5);
+            letter-spacing: 8px;
+        }
+
+        .logo-sub {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-sub:hover {
+            letter-spacing: 12px;
+            color: #d4af37;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        /* ===== BUTTONS WITH MICRO-INTERACTIONS ===== */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* PRIMARY BUTTON (Gold background) */
+        .btn-primary {
+            background-color: #d4af37;
+            color: #0a0f1e;
+            border-color: #d4af37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+            background-color: #e8c84a;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        /* SECONDARY BUTTON (Outline) */
+        .btn-secondary {
+            background-color: transparent;
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(212, 175, 55, 0.15);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary:active {
+            transform: scale(0.95);
+        }
+
+        /* RIPPLE EFFECT ON CLICK (Pure CSS) */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .btn:active::after {
+            width: 200px;
+            height: 200px;
+            opacity: 1;
+            transition: 0s;
+        }
+
+        /* ===== CARD LIFT EFFECT ON BUTTON CONTAINER ===== */
+        .hero-buttons:hover .btn {
+            transition-delay: 0.05s;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 60px;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 2.4rem;
+                letter-spacing: 3px;
+            }
+            .logo-sub {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+            }
+            nav {
+                font-size: 0.9rem;
+                gap: 5px 15px;
+            }
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            .hummingbird {
+                font-size: 2.5rem;
+            }
+            .flower {
+                font-size: 1.8rem;
+            }
+            .logo-text:hover {
+                transform: none;
+                letter-spacing: 4px;
+            }
+        }
+
+        /* Reduced motion preferences for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .hummingbird,
+            .flower,
+            .logo-text,
+            .logo-sub,
+            .btn,
+            nav a::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .hummingbird {
+                animation: none;
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FLYING HUMMINGBIRD (Emoji bird) ===== -->
+    <div class="hummingbird" aria-hidden="true">🐦</div>
+
+    <!-- ===== DECORATIVE FLOWERS ===== -->
+    <div class="flower flower-1" aria-hidden="true">🌸</div>
+    <div class="flower flower-2" aria-hidden="true">🌺</div>
+    <div class="flower flower-3" aria-hidden="true">🌷</div>
+    <div class="flower flower-4" aria-hidden="true">🌻</div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="proposal.html">Contact</a>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+
+        <!-- Text-based logo with 3D hover effect -->
+        <div class="logo-text">THE HOUSE OF WEALTH</div>
+        <div class="logo-sub">HIGH WATT SOLUTIONS</div>
+
+        <p class="tagline">
+            Unlock the energy of innovation with our precision platforms.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="services.html" class="btn btn-primary">EXPLORE OUR SERVICES</a>
+            <a href="proposal.html" class="btn btn-secondary">GET STARTED NOW</a>
+        </div>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        &copy; 2026 House of Wealth Global Estate
+    </footer>
+
+</body>
+</html>
