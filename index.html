@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The House of Wealth | High Watt Solutions</title>
     <style>
-        /* Reset and Full-Screen Setup */
+        /* Reset & Base Canvas Setup */
         * { 
             margin: 0; 
             padding: 0; 
@@ -18,11 +17,11 @@
             height: 100%;
             background-color: #030b1e;
             color: #ffffff;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* The Master Background Image */
-        .bg-canvas {
+        /* Displays your master background image perfectly across the screen */
+        .bg-master-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -36,7 +35,7 @@
         }
 
         /* Gold Outer Frame */
-        .bg-canvas::after { 
+        .bg-master-canvas::after { 
             content: ''; 
             position: absolute; 
             top: 0; 
@@ -48,11 +47,9 @@
             z-index: 10; 
         }
 
-        /* Interactive Overlay for Buttons & Navigation */
-        .content-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Interactive Text & Button Layer sitting on top of the image */
+        .interactive-overlay {
+            position: relative;
             width: 100%;
             height: 100%;
             z-index: 5;
@@ -74,7 +71,7 @@
             margin: 0 15px; 
             letter-spacing: 1.1px; 
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
         nav a:hover, nav a.active { 
             color: #e5c158; 
@@ -85,17 +82,17 @@
             opacity: 0.5; 
         }
 
-        /* Transparent Center Layout to align with the image text */
-        .center-interactive {
+        /* Invisible layout framework to push buttons into perfect position */
+        .button-alignment-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            padding-top: 180px; 
+            padding-top: 250px; /* Shifts your buttons downwards to sit exactly below the graphic text */
         }
 
-        /* Dynamic Action Buttons with Hover States */
+        /* Interactive Buttons */
         .button-box { 
             display: flex; 
             gap: 25px; 
@@ -109,93 +106,28 @@
             text-decoration: none; 
             letter-spacing: 1.5px; 
             border-radius: 30px; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease; 
         }
-        
-        /* Gold Button Hover - Glows and expands slightly */
         .btn-gold { 
             background: linear-gradient(135deg, #d4af37 0%, #aa8214 100%); 
             color: #030b1e; 
             border: 1px solid #e5c158; 
         }
         .btn-gold:hover { 
-            transform: scale(1.05); 
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); 
-            background: linear-gradient(135deg, #e5c158 0%, #d4af37 100%); 
-            cursor: pointer;
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); 
         }
-
-        /* Outline Button Hover - Fills with a golden tint on hover */
         .btn-outline { 
             background: transparent; 
             color: #ffffff; 
             border: 2px solid #d4af37; 
         }
         .btn-outline:hover { 
-            background: rgba(212, 175, 55, 0.2); 
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            cursor: pointer;
+            background: rgba(212, 175, 55, 0.15); 
+            transform: translateY(-2px); 
         }
 
-        /* --- Dynamic Flying Hummingbird Animation --- */
-        .hummingbird {
-            position: absolute;
-            width: 80px;  /* Size of the flying bird */
-            height: auto;
-            z-index: 8;   /* Floats above the background, but below the main text overlay */
-            pointer-events: none; /* Keeps it from blocking mouse clicks on buttons */
-            animation: flightPath 24s infinite ease-in-out;
-        }
-
-        /* The 3D flight path across the screen */
-        @keyframes flightPath {
-            0% {
-                top: 70%;
-                left: -10%;
-                transform: scaleX(1) rotate(5deg);
-            }
-            25% {
-                top: 40%;
-                left: 25%;
-                transform: scaleX(1) rotate(-5deg) translateY(-10px);
-            }
-            30% {
-                /* Pauses and hovers near the center-left flowers */
-                top: 40%;
-                left: 25%;
-                transform: scaleX(1) rotate(0deg) translateY(0px);
-            }
-            50% {
-                top: 20%;
-                left: 55%;
-                transform: scaleX(1) rotate(-10deg);
-            }
-            51% {
-                /* Smooth turn to fly back left */
-                transform: scaleX(-1) rotate(-10deg);
-            }
-            75% {
-                top: 55%;
-                left: 30%;
-                transform: scaleX(-1) rotate(10deg);
-            }
-            90% {
-                /* Hovers again */
-                top: 65%;
-                left: 10%;
-                transform: scaleX(-1) rotate(0deg);
-            }
-            100% {
-                top: 70%;
-                left: -10%;
-                transform: scaleX(1) rotate(5deg);
-            }
-        }
-
-        /* Footer Strip Overlay */
+        /* Footer Element Configurations */
         footer { 
             width: 100%; 
             padding: 25px 40px; 
@@ -214,14 +146,11 @@
 </head>
 <body>
 
-    <!-- Sits behind the overlay and displays the main artwork -->
-    <div class="bg-canvas"></div>
+    <!-- This element automatically loads your background.jpg across the entire screen -->
+    <div class="bg-master-canvas"></div>
 
-    <!-- Dynamic flying hummingbird image running on the CSS flightPath script -->
-    <img src="hummingbird.png" class="hummingbird" alt="Flying Hummingbird">
-
-    <!-- Active transparent interaction layer -->
-    <div class="content-overlay">
+    <!-- This clear overlay layer holds your operational navigation links and buttons -->
+    <div class="interactive-overlay">
         <header>
             <nav>
                 <a href="#" class="active">Home</a> <span>|</span>
@@ -232,7 +161,7 @@
             </nav>
         </header>
 
-        <main class="center-interactive">
+        <main class="button-alignment-zone">
             <div class="button-box">
                 <a href="#" class="btn btn-outline">Explore Services</a>
                 <a href="#" class="btn btn-gold">Join the Family Now</a>
