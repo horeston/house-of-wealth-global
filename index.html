@@ -5,174 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The House of Wealth | High Watt Solutions</title>
     <style>
-        /* Reset & Base Canvas Setup */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Times New Roman', serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body, html {
+            width: 100%;
             height: 100%;
-            background-color: #030b1e;
-            color: #ffffff;
-            overflow-x: hidden;
+            overflow: hidden;
+            background-color: #060b11;
         }
-
-        /* Displays your master background image perfectly across the screen */
-        .bg-master-canvas {
+        /* Uses your exact master image as the immersive responsive background */
+        .master-background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('background.jpg');
+            width: 100vw;
+            height: 100vh;
+            background-image: url('backghround');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
         }
-
-        /* Gold Outer Frame */
-        .bg-master-canvas::after { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: 4px solid #d4af37; 
-            pointer-events: none; 
-            z-index: 10; 
+        /* Golden outer borders to match the luxury frame layout */
+        .gold-frame {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 12px solid #d4af37;
+            border-image: linear-gradient(135deg, #aa7c11 0%, #d4af37 50%, #f3e5ab 100%) 12;
+            pointer-events: none;
+            z-index: 100;
         }
-
-        /* Interactive Text & Button Layer sitting on top of the image */
-        .interactive-overlay {
+        .interactive-container {
             position: relative;
+            z-index: 10;
             width: 100%;
             height: 100%;
-            z-index: 5;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        /* Top Navigation Header */
-        header { 
-            width: 100%; 
-            padding: 40px 20px; 
-            text-align: center; 
-        }
-        nav a { 
-            color: #ffffff; 
-            text-decoration: none; 
-            font-size: 1.1rem; 
-            margin: 0 15px; 
-            letter-spacing: 1.1px; 
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        nav a:hover, nav a.active { 
-            color: #e5c158; 
-            text-shadow: 0 0 10px #e5c158; 
-        }
-        nav span { 
-            color: #d4af37; 
-            opacity: 0.5; 
-        }
-
-        /* Invisible layout framework to push buttons into perfect position */
-        .button-alignment-zone {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            padding-top: 250px; /* Shifts your buttons downwards to sit exactly below the graphic text */
+            padding: 4rem;
         }
-
-        /* Interactive Buttons */
-        .button-box { 
-            display: flex; 
-            gap: 25px; 
+        /* Invisible hot-zones precisely aligned over your graphic's buttons */
+        .button-overlay-group {
+            position: absolute;
+            bottom: 12%;
+            display: flex;
+            gap: 25px;
         }
-        .btn { 
-            display: inline-block; 
-            padding: 14px 35px; 
-            font-size: 1rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            text-decoration: none; 
-            letter-spacing: 1.5px; 
-            border-radius: 30px; 
-            transition: all 0.3s ease; 
+        .invisible-cta {
+            display: inline-block;
+            width: 210px;
+            height: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s ease;
         }
-        .btn-gold { 
-            background: linear-gradient(135deg, #d4af37 0%, #aa8214 100%); 
-            color: #030b1e; 
-            border: 1px solid #e5c158; 
+        .invisible-cta:hover {
+            background: rgba(255, 223, 0, 0.15);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
-        .btn-gold:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); 
+        /* Floating dynamically active Hummingbird overlay using your file */
+        .animated-bird-container {
+            position: absolute;
+            top: 35%;
+            left: 22%;
+            width: 180px;
+            z-index: 20;
+            animation: majesticFloat 8s ease-in-out infinite;
         }
-        .btn-outline { 
-            background: transparent; 
-            color: #ffffff; 
-            border: 2px solid #d4af37; 
+        .animated-bird-container img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
         }
-        .btn-outline:hover { 
-            background: rgba(212, 175, 55, 0.15); 
-            transform: translateY(-2px); 
-        }
-
-        /* Footer Element Configurations */
-        footer { 
-            width: 100%; 
-            padding: 25px 40px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-        .footer-brand { 
-            color: #d4af37; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            font-size: 0.9rem; 
-            font-weight: bold;
+        @keyframes majesticFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-15px, -25px) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <!-- This element automatically loads your background.jpg across the entire screen -->
-    <div class="bg-master-canvas"></div>
+    <div class="master-background"></div>
+    <div class="gold-frame"></div>
 
-    <!-- This clear overlay layer holds your operational navigation links and buttons -->
-    <div class="interactive-overlay">
-        <header>
-            <nav>
-                <a href="#" class="active">Home</a> <span>|</span>
-                <a href="#">Services</a> <span>|</span>
-                <a href="#">Case Studies</a> <span>|</span>
-                <a href="#">About</a> <span>|</span>
-                <a href="#">Contact</a>
-            </nav>
-        </header>
+    <div class="interactive-container">
+        <!-- Floating hummingbird positioned right over the original artwork area -->
+        <div class="animated-bird-container">
+            <img src="il_1588xN.7712411935_iebv.webp" alt="House of Wealth Hummingbird">
+        </div>
 
-        <main class="button-alignment-zone">
-            <div class="button-box">
-                <a href="#" class="btn btn-outline">Explore Services</a>
-                <a href="#" class="btn btn-gold">Join the Family Now</a>
-            </div>
-        </main>
-
-        <footer>
-            <div class="footer-brand">★ HW ★</div>
-            <div class="footer-brand">House of Wealth</div>
-            <div class="footer-brand">🪪 ✉ 🌐</div>
-        </footer>
+        <!-- Working button links overlaid perfectly over the image's buttons -->
+        <div class="button-overlay-group">
+            <a href="#services" class="invisible-cta" title="Explore Our Services"></a>
+            <a href="#get-started" class="invisible-cta" title="Get Started Now"></a>
+        </div>
     </div>
 
 </body>
